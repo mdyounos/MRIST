@@ -29,7 +29,7 @@ void timer1_init()
     TIMSK1 |= (1 << OCIE1A);
 
     // Global interrupt enable
-    sei();
+    sei(); // Set Enable Interrupts না দিলে ISR() রান হবে না
 }
 
 int main(void)
@@ -40,17 +40,14 @@ int main(void)
 
     // Timer1 স্টার্ট করা
     timer1_init();
-
     while (1)
     {
-
-        // event_count প্রতি সেকেন্ডে বেড়ে ১০০০ হলে (১০০০ সেক = ~১৬.৬ মিনিট)
+        // event_count প্রতি সেকেন্ডে বেড়ে ১০০০ হয়
         if (event_count >= 1000)
         {
             PORTB ^= (1 << PORTB5); // LED toggle করা
             event_count = 0;        // কাউন্টার রিসেট
         }
     }
-
     return 0;
 }
